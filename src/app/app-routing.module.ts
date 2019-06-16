@@ -11,7 +11,7 @@ import { PageNotFoundComponent } from './page-not-found.component';
     RouterModule.forRoot(
       [
         {
-          path: 'welcome', component: WelcomeComponent
+          path: 'welcome', component: WelcomeComponent, data: {pageTitle: 'Welcome'}
         },
         {
           path: '', redirectTo: 'welcome', pathMatch: 'full'

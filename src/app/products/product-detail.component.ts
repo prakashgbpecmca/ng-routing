@@ -20,19 +20,23 @@ export class ProductDetailComponent {
     // const id =  this.router.snapshot.params['id'];
     // const id = +this.router.snapshot.paramMap.get('id');
 
-    this.router.paramMap.subscribe(data => {
-      this.getProduct(+data.get('id'));
-    });
+    const resolvedData =  router.snapshot.data['resolvedData'];
+    this.errorMessage =  resolvedData.error;
+
+    this.onProductRetrieved(resolvedData.product);
+    // this.router.paramMap.subscribe(data => {
+    //   this.getProduct(+data.get('id'));
+    // });
   }
 
-  getProduct(id: number) {
-    this.productService
-      .getProduct(id)
-      .subscribe(
-        product => this.onProductRetrieved(product),
-        error => (this.errorMessage = <any>error)
-      );
-  }
+  // getProduct(id: number) {
+  //   this.productService
+  //     .getProduct(id)
+  //     .subscribe(
+  //       product => this.onProductRetrieved(product),
+  //       error => (this.errorMessage = <any>error)
+  //     );
+  // }
 
   onProductRetrieved(product: Product): void {
     this.product = product;
