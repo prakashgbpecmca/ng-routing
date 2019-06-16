@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { Product } from './product';
 import { ProductService } from './product.service';
+import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './product-detail.component.html',
@@ -12,12 +13,25 @@ export class ProductDetailComponent {
   product: Product;
   errorMessage: string;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private router: ActivatedRoute
+  ) {
+    // const id =  this.router.snapshot.params['id'];
+    // const id = +this.router.snapshot.paramMap.get('id');
+
+    this.router.paramMap.subscribe(data => {
+      this.getProduct(+data.get('id'));
+    });
+  }
 
   getProduct(id: number) {
-    this.productService.getProduct(id).subscribe(
-      product => this.onProductRetrieved(product),
-      error => this.errorMessage = <any>error);
+    this.productService
+      .getProduct(id)
+      .subscribe(
+        product => this.onProductRetrieved(product),
+        error => (this.errorMessage = <any>error)
+      );
   }
 
   onProductRetrieved(product: Product): void {
