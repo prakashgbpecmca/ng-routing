@@ -20,7 +20,9 @@ export class LoginComponent {
       this.authService.login(userName, password);
 
       // Navigate to the Product List page after log in.
-       this.router.navigateByUrl('products');
+       // this.router.navigateByUrl('products'); // specify complete url path clearing ny other path segemnets such aas secondary routes
+       // entire set of  url parameters is relpaced with the defined path
+       this.router.navigate(['/products']); // standard syntax does not change the secondary routes
     } else {
       this.errorMessage = 'Please enter a user name and password.';
     }

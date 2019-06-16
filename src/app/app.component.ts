@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { AuthService } from './user/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pm-root',
@@ -9,7 +10,6 @@ import { AuthService } from './user/auth.service';
 })
 export class AppComponent {
   pageTitle = 'Acme Product Management';
-
   get isLoggedIn(): boolean {
     return this.authService.isLoggedIn;
   }
@@ -21,10 +21,11 @@ export class AppComponent {
     return '';
   }
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   logOut(): void {
     this.authService.logout();
-    console.log('Log out');
+     this.router.navigateByUrl('/welcome');
+   // this.router.navigate(['/welcome']);
   }
 }
