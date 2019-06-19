@@ -7,26 +7,45 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ProductResolveService } from './product-resolve.service';
+import { ProductEditInfoComponent } from './product-edit/product-edit-info.component';
+import { ProductEditTagsComponent } from './product-edit/product-edit-tags.component';
 
 @NgModule({
   imports: [
     SharedModule,
     RouterModule.forChild([
       {
-        path: 'products', component: ProductListComponent
-      },
-      {
-        path: 'products/:id', component: ProductDetailComponent, resolve: {resolvedData: ProductResolveService}
-      },
-      {
-        path: 'products/:id/edit', component: ProductEditComponent, resolve: {resolvedData: ProductResolveService}
+        path: 'products', children: [
+          {
+            path: '', component: ProductListComponent
+          },
+          {
+            path: ':id', component: ProductDetailComponent, resolve: {resolvedData: ProductResolveService}
+          },
+          {
+            path: ':id/edit', component: ProductEditComponent, resolve: {resolvedData: ProductResolveService, },
+            children: [
+              {
+                path: '', redirectTo: 'info', pathMatch: 'full'
+              },
+              {
+                path: 'info',  component: ProductEditInfoComponent
+              },
+              {
+                path: 'tags', component: ProductEditTagsComponent
+              }
+            ]
+          }
+        ]
       }
     ])
   ],
   declarations: [
     ProductListComponent,
     ProductDetailComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    ProductEditInfoComponent,
+    ProductEditTagsComponent
   ]
 })
 export class ProductModule { }
