@@ -14,8 +14,22 @@ export class ProductEditComponent {
   pageTitle = 'Product Edit';
   errorMessage: string;
 
-  product: Product;
+ // product: Product;
 
+  private currentProduct: Product;
+  private originalProduct: Product;
+
+  get product(): Product {
+   return this.currentProduct;
+  }
+  set product(value: Product) {
+  this.currentProduct = value;
+  this.originalProduct = {...value};
+  }
+
+  get isDirty(): boolean {
+      return JSON.stringify(this.originalProduct) !== JSON.stringify(this.currentProduct);
+  }
   constructor(
     private productService: ProductService,
     private route: Router,
@@ -33,7 +47,10 @@ export class ProductEditComponent {
       this.onProductRetrieved(resolvedData.product);
     });
   }
-
+reset(): void{
+this.currentProduct = null;
+this.originalProduct = null;
+}
   // getProduct(id: number): void {
   //   this.productService
   //     .getProduct(id)

@@ -8,7 +8,7 @@ import { MessageService } from '../messages/message.service';
 })
 export class AuthService {
   currentUser: User;
-
+  urlPath: string;
   get isLoggedIn(): boolean {
     return !!this.currentUser;
   }
