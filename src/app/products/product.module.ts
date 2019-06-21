@@ -16,10 +16,11 @@ import { ProductEditGuardGuard } from './product-edit/product-edit-guard.guard';
   imports: [
     SharedModule,
     RouterModule.forChild([
-      {
-        path: 'products',
-        canActivate: [AuthGuardGuard],
-        children: [
+      // {
+      //   path: 'products',
+      //   loadChildren: './products/product.module#ProductModule',
+      //   canActivate: [AuthGuardGuard],
+      //   children: [
           {
             path: '',
             component: ProductListComponent
@@ -50,8 +51,8 @@ import { ProductEditGuardGuard } from './product-edit/product-edit-guard.guard';
               }
             ]
           }
-        ]
-      }
+      //    ]
+      //  }
     ])
   ],
   declarations: [
